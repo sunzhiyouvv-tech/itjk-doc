@@ -1,0 +1,2 @@
+trigger: 2026-09-15T15:37:00+08:00
+reason: redeploy after connecting Vercel to GitHub

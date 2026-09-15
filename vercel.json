@@ -1,0 +1,12 @@
+{
+  "framework": null,
+  "installCommand": "echo \"No root dependencies\"",
+  "buildCommand": "sh scripts/build.sh",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

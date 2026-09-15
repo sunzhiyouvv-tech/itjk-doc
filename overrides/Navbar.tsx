@@ -108,9 +108,26 @@ const Navbar: React.FC<NavbarProps> = ({ mode, onChangeMode }) => {
           <Stack direction="row" spacing={1.2} alignItems="baseline">
             <Typography
               component="span"
-              sx={{ fontSize: isMobile ? 22 : 28, fontWeight: 800, letterSpacing: '-0.03em' }}
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'baseline',
+                fontSize: isMobile ? 22 : 28,
+                fontWeight: 800,
+                letterSpacing: '-0.03em'
+              }}
             >
               ITJK
+              <Typography
+                component="span"
+                sx={{
+                  fontSize: isMobile ? 11 : 13,
+                  fontWeight: 700,
+                  letterSpacing: 0,
+                  ml: 0.25
+                }}
+              >
+                .com
+              </Typography>
             </Typography>
             <Typography
               component="span"

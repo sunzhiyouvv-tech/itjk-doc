@@ -73,6 +73,23 @@ i18n = i18n.replace(
 );
 fs.writeFileSync(i18nFile, i18n);
 
+// Chinese homepage branding: “快速完成工作 IT极客 文档工具箱”.
+const zhTranslationFile = path.join(root, 'public/locales/zh/translation.json');
+const zhTranslation = JSON.parse(fs.readFileSync(zhTranslationFile, 'utf8'));
+if (zhTranslation.hero) {
+  zhTranslation.hero.brand = 'IT极客 文档工具箱';
+}
+fs.writeFileSync(zhTranslationFile, JSON.stringify(zhTranslation, null, 2) + '\n');
+
+// Ensure React Helmet uses the new site title on the homepage.
+const homeFile = path.join(root, 'src/pages/home/index.tsx');
+let home = fs.readFileSync(homeFile, 'utf8');
+home = home.replace(
+  /<Helmet title=\{['"]ITJK 文档工具箱['"]\}\s*\/>/g,
+  "<Helmet title={'IT极客 文档工具箱 - ITJK.com'} />"
+);
+fs.writeFileSync(homeFile, home);
+
 // Clean page metadata and remove all original icon assets.
 const indexFile = path.join(root, 'index.html');
 let index = fs.readFileSync(indexFile, 'utf8');
@@ -81,8 +98,8 @@ index = index
   .replace(/^\s*<link rel="icon"[^>]*>\s*$/gm, '')
   .replace(/^\s*<link rel="shortcut icon"[^>]*>\s*$/gm, '')
   .replace(/^\s*<link rel="apple-touch-icon"[^>]*>\s*$/gm, '')
-  .replace(/<meta name="apple-mobile-web-app-title" content="[^"]*"\s*\/>/g, '<meta name="apple-mobile-web-app-title" content="ITJK 文档工具箱" />')
-  .replace(/<title>[^<]*<\/title>/g, '<title>ITJK 文档工具箱</title>');
+  .replace(/<meta name="apple-mobile-web-app-title" content="[^"]*"\s*\/>/g, '<meta name="apple-mobile-web-app-title" content="IT极客 文档工具箱" />')
+  .replace(/<title>[^<]*<\/title>/g, '<title>IT极客 文档工具箱 - ITJK.com</title>');
 fs.writeFileSync(indexFile, index);
 
 const manifestFile = path.join(root, 'public/site.webmanifest');
@@ -90,8 +107,8 @@ fs.writeFileSync(
   manifestFile,
   JSON.stringify(
     {
-      name: 'ITJK 文档工具箱',
-      short_name: 'ITJK',
+      name: 'IT极客 文档工具箱',
+      short_name: 'ITJK.com',
       start_url: '/',
       display: 'standalone',
       background_color: '#ffffff',
@@ -121,7 +138,7 @@ fs.rmSync(path.join(root, '.idea'), { force: true, recursive: true });
 const packageFile = path.join(root, 'package.json');
 const pkg = JSON.parse(fs.readFileSync(packageFile, 'utf8'));
 pkg.name = 'itjk-doc';
-pkg.description = 'ITJK 文档工具箱';
+pkg.description = 'IT极客 文档工具箱';
 pkg.author = { name: 'ITJK' };
 delete pkg.bugs;
 fs.writeFileSync(packageFile, JSON.stringify(pkg, null, 2) + '\n');
